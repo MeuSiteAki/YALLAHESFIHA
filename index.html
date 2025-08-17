@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yallah Esfiha</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #353535;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    #mostruario {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+
+    .produto {
+        background: white;
+        padding: 10px;
+        border: 3px solid #ccc;
+        border-radius: 5px;
+        transition: transform 0.2s;
+        text-align: center;
+        width: 200px;
+        /* Definindo largura fixa para todos os produtos */
+        height: 320px;
+        /* Definindo altura fixa para todos os produtos */
+    }
+
+    .produto:hover {
+        transform: scale(1.05);
+    }
+
+    #carrinho {
+        background: white;
+        padding: 5px;
+        border: 3px solid #000000;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    #lista-carrinho {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #lista-carrinho li {
+        display: flex;
+        justify-content: space-between;
+        padding: 1px;
+        border-bottom: 1px solid #ccc;
+        font-weight: 600;
+    }
+
+    #lista-carrinho li:last-child {
+        border-bottom: none;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+        animation: entrada 1s ease-in-out;
+        border-radius: 50px;
+    }
+
+    @keyframes entrada {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h1 {
+        color: white;
+        font-family: Verdana;
+    }
+
+    h2 {
+        color: white;
+        font-weight: 600;
+    }
+
+    #menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        padding: 5px;
+        border-radius: 5px;
+        margin-top: 20px;
+        animation: abrir 0.5s ease;
+    }
+
+    @keyframes abrir {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #botao-menu {
+        cursor: pointer;
+        background: #000000;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+        letter-spacing: 5px;
+        animation: alternarCores 7s infinite;
+        font-weight: 600;
+        box-shadow: 0px 5px 5px 0px white;
+    }
+
+    @keyframes alternarCores {
+        0% {
+            background-color: black;
+            color: white;
+        }
+
+        50% {
+            background-color: white;
+            color: black;
+        }
+
+        100% {
+            background-color: black;
+            color: white;
+        }
+    }
+
+    p {
+        font-size: 30px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: 600;
+        color: rgb(0, 0, 148);
+    }
+
+    .adicionar {
+        font-size: 14px;
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .adicionar:hover {
+        background-color: #444;
+    }
+
+    .remover {
+        font-size: 14px;
+        background-color: rgb(192, 0, 0);
+        color: white;
+        border: none;
+        padding: 3px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .remover:hover {
+        background-color: #ff2a2a;
+    }
+
+    #formulario-entrega {
+        background-color: black;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px auto;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    #form-entrega label {
+        display: block;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    #form-entrega input,
+    #form-entrega select,
+    #form-entrega textarea {
+        width: 80%;
+        padding: 7px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    #form-entrega textarea {
+        resize: none;
+    }
+
+    ::placeholder {
+        font-size: 20px;
+        font-family: Verdana;
+    }
+
+    @keyframes luz {
+        0% {
+            box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+        }
+
+        50% {
+            box-shadow: 0 0 80px rgb(255, 255, 255);
+        }
+
+        100% {
+            box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+        }
+    }
+
+    .im {
+        animation: luz 5s infinite;
+    }
+
+    .btn-menu {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 10px;
+        cursor: pointer;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #333;
+
+    }
+    </style>
+    <style>
+    .aviso {
+        font-size: 24px;
+        color: rgb(255, 255, 255);
+        background-color: #006d1b;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+    .fechado {
+        font-size: 24px;
+        color: rgb(255, 255, 255);
+        background-color: red;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <img class="im" style="box-shadow: 10px 10px 10px white;" src="esfirra.jpg" alt="Esfiha" width="300">
+    <header><br>
+
+<div id="mensagem" class="aviso"></div>
+
+    <script>
+        function verificarHorario() {
+            const agora = new Date();
+            const hora = agora.getHours();
+            const minutos = agora.getMinutes();
+            const horarioAtual = hora * 60 + minutos;
+
+            // Define os períodos em minutos
+            const aberturaManha = 8 * 60;       // 08:00
+            const fechamentoManha = 12 * 60;    // 12:00
+            const aberturaTarde = 14 * 60;      // 14:00
+            const fechamentoTarde = 20 * 60 + 30; // 20:30
+
+            const mensagemDiv = document.getElementById('mensagem');
+
+            if (horarioAtual >= aberturaManha && horarioAtual < fechamentoManha) {
+                // Aberto de manhã: 08:00 até 11:59
+                mensagemDiv.innerText = "Estamos aberto.";
+                mensagemDiv.classList.remove('fechado');
+                mensagemDiv.classList.add('aviso');
+
+            } else if (horarioAtual >= fechamentoManha && horarioAtual < aberturaTarde) {
+                // Fechado para almoço: 12:00 até 13:59
+                mensagemDiv.innerText = "Estamos fechado para almoço. Retorno às 14:00.";
+                mensagemDiv.classList.remove('aviso');
+                mensagemDiv.classList.add('fechado');
+
+            } else if (horarioAtual >= aberturaTarde && horarioAtual <= fechamentoTarde) {
+                // Aberto à tarde/noite: 14:00 até 20:30
+                mensagemDiv.innerText = "Estamos aberto.";
+                mensagemDiv.classList.remove('fechado');
+                mensagemDiv.classList.add('aviso');
+
+            } else {
+                // Fechado fora do expediente
+                mensagemDiv.innerText = "Estamos fechado. Abrimos amanhã às 08:00.";
+                mensagemDiv.classList.remove('aviso');
+                mensagemDiv.classList.add('fechado');
+            }
+        }
+
+        verificarHorario();
+        setInterval(verificarHorario, 60000); // Atualiza a cada minuto
+    </script>
+
+
+    </header>
+    <button id="botao-carrinho" style="position: fixed; top: 30px; right: 10px;
+    padding: 4px; border-radius: 5px;">L <br> I <br> S <br> T <br>A</button>
+    <div id="contador-itens"
+        style="position: fixed; top: 550px; right: 10px; background-color: black; color: white; padding: 10px; border-radius: 5px;">
+        <span id="total-itens">0</span>
+    </div>
+        <style>
+            #botao-menu {
+                background-color: black;
+                color: white;
+                transition: background-color 2s, color 1s;
+            }
+
+            #botao-menu:hover {
+                background-color: white;
+                color: black;
+            }
+        </style>
+
+        <br>
+        <style>
+            .btn-menu {
+                display: inline-block;
+                margin: 10px;
+                padding: 10px 20px;
+                background-color: #000000;
+                color: white;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                text-align: center;
+                transition: transform 0.3s, background-color 0.3s;
+            }
+
+            .btn-menu:hover {
+                background-color: #353535;
+                transform: scale(1.1);
+            }
+
+            #container {
+                text-align: center;
+                margin: 20px 0;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .btn-menu {
+                width: calc(50% - 20px);
+            }
+
+            @media (max-width: 600px) {
+                .btn-menu {
+                    width: 90%;
+                    margin: 5px 0;
+                }
+            }
+        </style>
+        <button id="botao-menu">Menu</button><br>
+        <div id="menu">
+    *Imagens meramente ilustrativas
+    <div id="container">
+        <button class="btn-menu" onclick="toggleMostruario('esfihas'); scrollToSection('esfira');"><a style="color: white; font-weight: 600; font-size: 20px;" href="#esfira"> Esfihas </a></button>
+        <button class="btn-menu" onclick="toggleMostruario('salgados'); scrollToSection('salgados');"><a style="color: white; font-weight: 600; font-size: 20px;" href="#salgados"> Salgados </a></button>
+        <button class="btn-menu" onclick="toggleMostruario('pao'); scrollToSection('paopizza');"><a style="color: white; font-weight: 600; font-size: 20px;" href="#paopizza"> Pão Pizza </a></button>
+        <button class="btn-menu" onclick="toggleMostruario('lasanha'); scrollToSection('lasanha');"><a style="color: white; font-weight: 600; font-size: 20px;" href="#lasanha"> Lasanha </a></button>
+        <button class="btn-menu" onclick="toggleMostruario('folhados'); scrollToSection('folhados');"><a style="color: white; font-weight: 600; font-size: 20px;" href="#folhados"> Folhados </a></button>
+        <button class="btn-menu" onclick="toggleMostruario('doces'); scrollToSection('doces');"><a style="color: white; font-weight: 600; font-size: 20px;" href="#doces"> Confeitaria </a></button>
+        <button class="btn-menu" onclick="toggleMostruario('panificacao'); scrollToSection('panificacao');"><a style="color: white; font-weight: 600; font-size: 20px;" href="#panificacao"> Panificação </a></button>
+    </div>
+</div>
+<section id="mostruario-esfihas" style="display: none;">
+    <h2 id="esfira">ESFIHAS</h2>
+    <div id="mostruario">
+        <div id="esfiha" class="produto" data-preco="5.00">
+            <img style="width: 70px;" src="carn.jpg" alt="">
+            <h3>Esfiha de Carne </h3>
+            <h3> <br> R$ 5,00</h3>
+            <button class="adicionar">Adicionar</button>
+            <br><br>
+            <button class="remover">Remover</button>
+        </div>
+        <div class="produto" data-preco="5.00">
+            <img style="width: 70px;" src="fran.jpg" alt="">
+            <h3>Esfiha de Frango </h3>
+            <h3> <br> R$ 5,00</h3>
+            <button class="adicionar">Adicionar</button>
+            <br><br>
+            <button class="remover">Remover</button>
+        </div>
+        <div class="produto" data-preco="5.00">
+            <img style="width: 70px;" src="car e que.jpg" alt="">
+            <h3>Esfiha de Queijo e Carne</h3>
+            <h3>R$ 5,00</h3>
+            <button class="adicionar">Adicionar</button>
+            <br><br>
+            <button class="remover">Remover</button>
+        </div>
+    </div>
+    <div id="mostruario">
+        <div id="esfiha" class="produto" data-preco="5.00">
+            <img style="width: 70px;" src="fran c que.jpg" alt="">
+            <h3>Esfiha Frango e Queijo </h3>
+            <h3> <br> R$ 5,00</h3>
+            <button class="adicionar">Adicionar</button>
+            <br><br>
+            <button class="remover">Remover</button>
+        </div>
+        <div class="produto" data-preco="5.00">
+            <img style="width: 70px;" src="que e pres.jpg" alt="">
+            <h3>Esfiha de Presunto e queijo </h3>
+            <h3> <br> R$ 5,00</h3>
+            <button class="adicionar">Adicionar</button>
+            <br><br>
+            <button class="remover">Remover</button>
+        </div>
+        <div class="produto" data-preco="5.00">
+            <img style="width: 70px;" src="que.jpg" alt="">
+            <h3>Esfiha de Mussarela </h3><br>
+            <h3>R$ 5,00</h3>
+            <button class="adicionar">Adicionar</button>
+            <br><br>
+            <button class="remover">Remover</button>
+        </div>
+    </div>
+     <div id="mostruario">
+        <div id="esfiha" class="produto" data-preco="5.00">
+            <img style="width: 70px;" src="fran c que.jpg" alt="">
+            <h3>Esfiha Goiaba e Queijo </h3>
+            <h3> <br> R$ 5,00</h3>
+            <button class="adicionar">Adicionar</button>
+            <br><br>
+            <button class="remover">Remover</button>
+        </div>
+        <div class="produto" data-preco="6.00">
+            <img style="width: 70px;" src="nute.jpg" alt="">
+            <h3>Esfiha de Nutella </h3>
+            <h3> <br> R$ 6,00</h3>
+            <button class="adicionar">Adicionar</button>
+            <br><br>
+            <button class="remover">Remover</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleMostruario(item) {
+        // Lógica para mostrar/ocultar o mostruário
+    }
+
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+        <!-- 2 -->
+        <section id="mostruario-doces" style="display: none;">
+            <h2 id="doces">CONFEITARIA</h2>
+            <div id="mostruario">
+                <div id="esfiha" class="produto" data-preco="3.00">
+                    <img style="width: 80px;"
+                        src="https://static.lojavirtual.flusshaus.com.br/public/flusshaus/imagens/produtos/trufa-de-chocolate-ao-leite-com-creme-preto-de-avela-gianduia-30g-1369.jpg"
+                        alt="">
+                    <h3>Trufas de Chocolate</h3>
+                    <h3> <br> R$ 4,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="3.00">
+                    <img style="width: 80px;"
+                        src="https://www.marajoaraalimentos.com.br/2018/wp-content/uploads/2020/07/349-scaled.jpg"
+                        alt="">
+                    <br>
+                    <h3>Brigadeiro Chocolate</h3><br>
+                    <h3>R$ 3,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+            <div id="mostruario">
+                <div id="esfiha" class="produto" data-preco="3.00">
+                    <img style="width: 80px;"
+                        src="https://www.confeitariahelena.com.br/img/painel/medias/docinho-beijinho-confeitaria-helena.jpg"
+                        alt="">
+                    <h3>Brigadeiro Beijinho</h3>
+                    <h3> <br> <br> R$ 3,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="5.00">
+                    <img style="width: 80px;"
+                        src="https://receitadaboa.com.br/wp-content/uploads/2024/03/istock_1479761454-26685031.jpg"
+                        alt="">
+                    <h3>Pudim (fatia)</h3><br>
+                    <h3>R$ 5,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+            <div id="mostruario">
+                <div id="esfiha" class="produto" data-preco="6.00">
+                    <img style="width: 80px;"
+                        src="data:image/jpeg;base64,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"
+                        alt="">
+                    <h3>Mousse Maracujá</h3>
+                    <h3> <br> R$ 6,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00"><br>
+                    <img style="width: 90px;"
+                        src="data:image/jpeg;base64,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"
+                        alt="">
+                    <h3>Pavê </h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+        </section>
+        <!-- 3 -->
+        <section id="mostruario-salgados" style="display: none;">
+            <h2 id="salgados">SALGADOS</h2>
+            <div id="mostruario">
+                <div id="esfiha" class="produto" data-preco="5.00">
+                    <img style="width: 97px;"
+                        src="https://panattos.com.br/uploads/produtos/2017/03/coxinha-de-frango-com-requeijao-mini-congelada.jpg"
+                        alt="">
+                    <h3>Coxinha de Frango </h3>
+                    <h3> <br> <br> R$ 5,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="5.00">
+                    <img style="width: 97px;"
+                        src="https://receitasdepesos.com.br/wp-content/uploads/2025/03/pastel-de-massa-cozida-e1748691200729.jpg"
+                        alt="">
+                    <h3>Pastel de Carne </h3>
+                    <h3> <br><br> R$ 5,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="5.00">
+                    <img style="width: 97px;"
+                        src="https://receitasdepesos.com.br/wp-content/uploads/2025/03/pastel-de-massa-cozida-e1748691200729.jpg"
+                        alt="">
+                    <h3>Patel de Queijo com Presunto</h3>
+                    <h3>R$ 5,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+            <div id="mostruario">
+                <div id="esfiha" class="produto" data-preco="5.00">
+                    <img style="width:95px;"
+                        src="https://d246rzh6rlbt6w.cloudfront.net/img.produtos/645527/645/img_1200_1.png" alt="">
+                    <h3>Enroladinho de salsicha </h3>
+                    <h3> <br> R$ 5,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="6.00">
+                    <img style="width:95px;" src="https://kssara.com.br/wp-content/uploads/2022/10/KIBEFRITO.png"
+                        alt="">
+                    <h3>Kibe de Carne </h3>
+                    <h3> <br>R$ 6,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="6.00">
+                    <img style="width:95px;" src="https://kssara.com.br/wp-content/uploads/2022/10/KIBEFRITO.png"
+                        alt="">
+                    <h3>Kibe de Queijo</h3>
+                    <h3> <br>R$ 6,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+            <div id="mostruario">
+                <div class="produto" data-preco="5.00">
+                    <img style="width:95px;"
+                        src="https://emporiokaminski.com.br/wp-content/uploads/2024/06/Mini-Empada-Frango-1.jpg" alt="">
+                    <h3>Empadinha de Frango</h3>
+                    <h3> <br>R$ 5,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+        </section>
+        <section id="mostruario-pao" style="display: none;">
+            <h2 id="paopizza">PÃO PIZZA</h2>
+            <div id="mostruario">
+                <div id="pao" class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
+                        alt="">
+                    <h3>Pão Pizza Carne </h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
+                        alt="">
+                    <h3>Pão Pizza Frango</h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div id="pao" class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
+                        alt="">
+                    <h3>Pão Pizza Queijo e Presunto </h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+            <div id="mostruario">
+                <div id="pao" class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
+                        alt="">
+                    <h3>Pão Pizza Queijo <br> com Carne </h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
+                        alt="">
+                    <h3>Pão Pizza Frango com Queijo </h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
+                        alt="">
+                    <h3>Pão Pizza Salsicha com Queijo</h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+        </section>
+        <section id="mostruario-lasanha" style="display: none;">
+            <h2 id="lasanha">LASANHA</h2>
+            <div id="mostruario">
+                <div id="lasanha" class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX7qcHNfYsFYhujR2WmXABMS0EjLZX8MwvNQ&s"
+                        alt="">
+                    <h3>Lasanha de Frango</h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00">
+                    <img style="width: 97px;" src="https://img.cybercook.com.br/receitas/731/lasanha-3.jpeg" alt="">
+                    <h3>Lasanha de Carne</h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="6.00">
+                    <img style="width: 97px;"
+                        src="https://i0.wp.com/mundodedelicias.com.br/wp-content/uploads/2025/01/Torta-Fria-de-Frango.jpg"
+                        alt="">
+                    <h3>Torta Fria de Frango</h3>
+                    <h3> <br> R$ 6,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+        </section>
+        <section id="mostruario-folhados" style="display: none;">
+            <h2 id="folhados">FOLHADOS</h2>
+            <div id="mostruario">
+                <div id="folhados" class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://www.panificiomallet.com/storage/app/uploads/public/5f4/e5a/667/5f4e5a667a7c9798053569.jpg"
+                        alt="">
+                    <h3>Folhado Presunto e Queijo</h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://www.panificiomallet.com/storage/app/uploads/public/5f4/e5a/667/5f4e5a667a7c9798053569.jpg"
+                        alt="">
+                    <h3>Folhado Queijo</h3>
+                    <h3> <br><br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="https://www.panificiomallet.com/storage/app/uploads/public/5f4/e5a/667/5f4e5a667a7c9798053569.jpg"
+                        alt="">
+                    <h3>Folhado Frango </h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+        </section>
+        <section id="mostruario-panificadora" style="display: none;">
+            <h2 id="panificacao">PANIFICAÇÃO</h2>
+            <div id="mostruario">
+                <div id="folhados" class="produto" data-preco="7.00">
+                    <img style="width: 90px;"
+                        src="https://png.pngtree.com/png-clipart/20210613/original/pngtree-browni-dessert-diet-meal-png-image_6404131.jpg"
+                        alt="">
+                    <h3>Brownie Chocolate</h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="5.00">
+                    <img style="width: 90px;"
+                        src="https://d246rzh6rlbt6w.cloudfront.net/img.produtos/6458069/645/img_1200_1.png" alt="">
+                    <h3>Tortilete</h3>
+                    <h3> <br><br> R$ 5,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00"><br>
+                    <img style="width: 97px;"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDWV0JQZhwSzvQ8nCxPBukC2XkcEZAXtovfg&s"
+                        alt="">
+                    <h3>Sanduiche Natural</h3>
+                    <h3> <br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+            <div id="mostruario">
+                <div id="folhados" class="produto" data-preco="3.00">
+                    <img style="width: 90px;"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6W9lcQ2WPllYFH_dpbEf6T4oocneb-rWbuQ&s"
+                        alt="">
+                    <h3>Pão Hungaro</h3>
+                    <h3> <br> R$ 3,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="5.00">
+                    <img style="width: 90px;"
+                        src="data:image/jpeg;base64,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"
+                        alt="">
+                    <h3>Sonho</h3>
+                    <h3> <br><br> R$ 5,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="3.00">
+                    <img style="width: 90px;"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoOOFlsTz8U5BvMB0NTP8qRH7BLk2AfMXeJg&s"
+                        alt="">
+                    <h3>Pão doce c/ creme</h3>
+                    <h3> <br> R$ 3,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+            <div id="mostruario">
+                <div id="folhados" class="produto" data-preco="12.00">
+                    <img style="width: 90px;"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmxN4Yiova_I7pbxSMANozD8uQJDgIUP7H-Q&s"
+                        alt="">
+                    <h3>Bolo Vulcão</h3>
+                    <h3> <br> R$ 12,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="7.00">
+                    <img style="width: 97px;"
+                        src="data:image/jpeg;base64,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"
+                        alt="">
+                    <h3>Bolo Chocolate</h3>
+                    <h3> <br><br> R$ 7,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+                <div class="produto" data-preco="12.00">
+                    <img style="width: 90px;"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWRrftXr4fjIQinn9JhbKzQ_PCRkP6HFlTUA&s"
+                        alt="">
+                    <h3>Bolo Simples</h3>
+                    <h3> <br> R$ 12,00</h3>
+                    <button class="adicionar">Adicionar</button>
+                    <br><br>
+                    <button class="remover">Remover</button>
+                </div>
+            </div>
+        </section>
+        <script>
+            function toggleMostruario(tipo) {
+                const esfihas = document.getElementById('mostruario-esfihas');
+                const doces = document.getElementById('mostruario-doces');
+                const salgados = document.getElementById('mostruario-salgados');
+                const pao = document.getElementById('mostruario-pao');
+                const lasanha = document.getElementById('mostruario-lasanha');
+                const folhados = document.getElementById('mostruario-folhados');
+                const panificacao = document.getElementById('mostruario-panificadora');
+
+                if (tipo === 'esfihas') {
+                    esfihas.style.display = esfihas.style.display === 'none' ? 'block' : 'none';
+                    doces.style.display = 'none';
+                    salgados.style.display = 'none';
+                    pao.style.display = 'none';
+                    lasanha.style.display = 'none';
+                    folhados.style.display = 'none';
+                    panificacao.style.display = 'none';
+                } else if (tipo === 'doces') {
+                    doces.style.display = doces.style.display === 'none' ? 'block' : 'none';
+                    esfihas.style.display = 'none';
+                    salgados.style.display = 'none';
+                    pao.style.display = 'none';
+                    lasanha.style.display = 'none';
+                    folhados.style.display = 'none';
+                    panificacao.style.display = 'none';
+                } else if (tipo === 'salgados') {
+                    salgados.style.display = salgados.style.display === 'none' ? 'block' : 'none';
+                    esfihas.style.display = 'none';
+                    doces.style.display = 'none';
+                    pao.style.display = 'none';
+                    lasanha.style.display = 'none';
+                    folhados.style.display = 'none';
+                    panificacao.style.display = 'none';
+                } else if (tipo === 'pao') {
+                    pao.style.display = pao.style.display === 'none' ? 'block' : 'none';
+                    esfihas.style.display = 'none';
+                    doces.style.display = 'none';
+                    salgados.style.display = 'none';
+                    lasanha.style.display = 'none';
+                    folhados.style.display = 'none';
+                    panificacao.style.display = 'none';
+                } else if (tipo === 'lasanha') {
+                    lasanha.style.display = lasanha.style.display === 'none' ? 'block' : 'none';
+                    esfihas.style.display = 'none';
+                    doces.style.display = 'none';
+                    salgados.style.display = 'none';
+                    pao.style.display = 'none';
+                    folhados.style.display = 'none';
+                    panificacao.style.display = 'none';
+                } else if (tipo === 'folhados') {
+                    folhados.style.display = folhados.style.display === 'none' ? 'block' : 'none';
+                    esfihas.style.display = 'none';
+                    doces.style.display = 'none';
+                    salgados.style.display = 'none';
+                    pao.style.display = 'none';
+                    lasanha.style.display = 'none';
+                    panificacao.style.display = 'none';
+                } else if (tipo === 'panificacao') {
+                    panificacao.style.display = panificacao.style.display === 'none' ? 'block' : 'none';
+                    esfihas.style.display = 'none';
+                    doces.style.display = 'none';
+                    salgados.style.display = 'none';
+                    pao.style.display = 'none';
+                    lasanha.style.display = 'none';
+                    folhados.style.display = 'none';
+                }
+            }
+        </script>
+        <br>
+        <section id="carrinho">
+            <h2
+                style="color: white; font-family: Verdana; font-weight: 600; background-color: black; border-radius: 10px;">
+                CARRINHO:</h2>
+            <ul id="lista-carrinho"></ul>
+            <p>Total: R$ <span id="total-geral">0.00</span></p>
+            <button id="limpar-carrinho"
+                style="background-color: red; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;">Limpar
+                Carrinho</button>
+        </section>
+        <h6 style="text-align: center; color: white;">*Prezado cliente, será cobrado uma taxa de R$3,00 
+            da entrega no valor total. </h6>
+        <section style="background-image: url(esfirra\ 2.jpg); background-size: cover; background-position: center;"
+            id="formulario-entrega">
+            <h2>ENTREGA:</h2>
+            <form id="form-entrega">
+                <input type="text" id="nome" name="nome" placeholder="Nome" required><br>
+                <input type="text" id="endereco" name="endereco" placeholder="Endereço" required><br>
+                <select id="bairro" name="bairro" required>
+                    <option value="">Selecione o Bairro</option>
+                    <option value="Centro">Centro</option>
+                    <option value="Coqueiral">Coqueiral</option>
+                    <option value="Vila Emanuela">Vila Emanuela</option>
+                    <option value="Vila Emanuela">Célio Bráz</option>
+                    <option value="Vila Samuel">Vila Samuel</option>
+                    <option value="Vila São Sebastião">Vila São Sebastião</option>
+                    <option value="Jardim Planalto">Jardim Planalto</option>
+                    <option value="Parque Primavera">Parque Primavera</option>
+                    <option value="Vila São João">Vila São João</option>
+                    <option value="Paraiso">Paraiso</option>
+                </select>
+                <input type="tel" id="telefone" name="telefone" placeholder="Telefone" ><br>
+                <textarea style="height: 25px;" id="observacao" name="observacao"
+                    placeholder="Observação"></textarea><br>
+
+                <select id="forma-pagamento" name="forma-pagamento" required>
+                    <option value="">Selecione o Pagamento</option>
+                    <option value="pix">Pix</option>
+                    <option value="cartao-credito">Cartão de Crédito</option>
+                    <option value="dinheiro">Dinheiro</option>
+                </select><br><br>
+                <button class="btn-enviar" id="enviar-whatsapp" style="background-color: #006d1b; color: rgb(255, 255, 255); border: none; 
+        border-radius: 5px; padding: 10px 20px; cursor: pointer; font-weight: 600; 
+        font-size: 30px; box-shadow: 5px 5px 5px white;">Enviar Pedido</button>
+            </form>
+        </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.getElementById('forma-pagamento').addEventListener('change', function () {
+                if (this.value === 'pix') {
+                    Swal.fire({
+                        title: 'Atenção!',
+                        text: 'Prezado cliente, enviar o comprovante do PIX após o pedido. OBG.',
+                        icon: 'info',
+                        confirmButtonText: 'OK'
+                    });
+                } else if (this.value === 'dinheiro') {
+                    Swal.fire({
+                        title: 'Valor do Dinheiro',
+                        input: 'text',
+                        inputLabel: '',
+                        inputPlaceholder: 'Valor em R$',
+                        showCancelButton: true,
+                        confirmButtonText: 'OK',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById('observacao').value += 'Troco para: R$ ' + result.value;
+                        }
+                    });
+                }
+            });
+        </script>
+
+        <!-- setas -->
+
+        <div class="seta" id="seta-topo" style="top: 350px;">M <br> E <br> N <br> U</div>
+        <div class="seta" id="seta-carrinho" style="top: 600px;">🛒</div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ 
+<script>
+    const produtos = document.querySelectorAll('.produto');
+    const listaCarrinho = document.getElementById('lista-carrinho');
+    const totalGeral = document.getElementById('total-geral');
+    const totalItens = document.getElementById('total-itens');
+    const botaoLimpar = document.getElementById('limpar-carrinho');
+    const botaoCarrinho = document.getElementById('botao-carrinho');
+    let total = 0;
+    let quantidadeTotal = 0;
+
+    produtos.forEach(produto => {
+        produto.querySelector('.adicionar').addEventListener('click', () => {
+            const nome = produto.querySelector('h3').innerText;
+            const preco = parseFloat(produto.getAttribute('data-preco'));
+            total += preco;
+            quantidadeTotal++;
+
+            let itemExistente = Array.from(listaCarrinho.children).find(item => item.innerText.includes(nome));
+            if (itemExistente) {
+                let quantidade = parseInt(itemExistente.getAttribute('data-quantidade')) + 1;
+                itemExistente.setAttribute('data-quantidade', quantidade);
+                let novoPreco = preco * quantidade;
+                itemExistente.innerText = `${quantidade} - ${nome} - R$ ${novoPreco.toFixed(2)}`;
+                Swal.fire('+ 1', `${nome} foi adicionado ao carrinho.`, 'success');
+            } else {
+                const item = document.createElement('li');
+                item.setAttribute('data-quantidade', 1);
+                item.innerText = `1 - ${nome} - R$ ${preco.toFixed(2)}`;
+                listaCarrinho.appendChild(item);
+                Swal.fire('Adicionado', `${nome} ao carrinho.`, 'success');
+            }
+            totalGeral.innerText = total.toFixed(2);
+            totalItens.innerText = quantidadeTotal;
+        });
+
+        produto.querySelector('.remover').addEventListener('click', () => {
+            const nome = produto.querySelector('h3').innerText;
+            const preco = parseFloat(produto.getAttribute('data-preco'));
+
+            let itemExistente = Array.from(listaCarrinho.children).find(item => item.innerText.includes(nome));
+            if (itemExistente) {
+                let quantidade = parseInt(itemExistente.getAttribute('data-quantidade'));
+                if (quantidade > 1) {
+                    quantidade--;
+                    itemExistente.setAttribute('data-quantidade', quantidade);
+                    let novoPreco = preco * quantidade;
+                    itemExistente.innerText = `${quantidade} - ${nome} - R$ ${novoPreco.toFixed(2)}`;
+                    total -= preco;
+                    totalGeral.innerText = total.toFixed(2);
+                } else {
+                    listaCarrinho.removeChild(itemExistente);
+                    total -= preco;
+                    totalGeral.innerText = total.toFixed(2);
+                }
+                quantidadeTotal--;
+                totalItens.innerText = quantidadeTotal;
+                Swal.fire('Removido!', `${nome} foi removido do carrinho.`, 'info');
+            }
+        });
+    });
+    document.querySelectorAll('.adicionar').forEach(button => {
+        button.addEventListener('click', function() {
+            const produto = this.parentElement;
+            const imgSrc = produto.querySelector('img').src;
+            const nomeProduto = produto.querySelector('h3').innerText;
+            Swal.fire({
+                title: 'Adicionado!',
+                text: `Você adicionou ${nomeProduto}`,
+                imageUrl: imgSrc,
+                imageWidth: 170,
+                imageHeight: 170,
+                imageAlt: nomeProduto,
+            });
+        });
+    });
+    const botaoMenu = document.getElementById('botao-menu');
+    const menu = document.getElementById('menu');
+
+    botaoMenu.addEventListener('click', () => {
+        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    botaoLimpar.addEventListener('click', () => {
+        listaCarrinho.innerHTML = '';
+        total = 0;
+        quantidadeTotal = 0;
+        totalGeral.innerText = total.toFixed(2);
+        totalItens.innerText = quantidadeTotal;
+        Swal.fire('Carrinho Limpo', 'Todos os itens foram removidos.', 'info');
+    });
+
+    botaoCarrinho.addEventListener('click', () => {
+        let itensCarrinho = Array.from(listaCarrinho.children).map(item => item.innerText).join('\n');
+        Swal.fire({
+            title: 'Itens no Carrinho',
+            text: `\n${itensCarrinho} - Total: R$ ${totalGeral.innerText}`,
+            icon: 'info'
+        });
+    });
+
+    document.getElementById('enviar-whatsapp').addEventListener('click', () => {
+        let mensagem = `*PEDIDO:*\n`;
+        listaCarrinho.querySelectorAll('li').forEach(item => {
+            mensagem += `${item.innerText}\n`;
+        });
+        mensagem += `--------------------------------
+*Total: R$ ${totalGeral.innerText}*\n`;
+        const nome = document.getElementById('nome').value;
+        const endereco = document.getElementById('endereco').value;
+        const telefone = document.getElementById('telefone').value;
+        const observacao = document.getElementById('observacao').value;
+        const formaPagamento = document.getElementById('forma-pagamento').value;
+        const bairro = document.getElementById('bairro').value;
+if (!nome || !endereco || !telefone || bairro === "Selecione o Bairro" || formaPagamento === "Forma de Pagamento") {
+        Swal.fire('Erro!', 'Todos os campos são obrigatórios, exceto observação.', 'error');
+        return;
+    }
+        mensagem += `\n*Nome:* ${nome}\n*Endereço:* ${endereco}\n*Bairro:* ${bairro}\n*Telefone:* ${telefone}\n*Observação:* ${observacao}\n*Forma de Pagamento:* ${formaPagamento}
+        
+Yallah agradece.    `;
+        const numeroWhatsApp = '5594991630373';
+        const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
+        window.open(urlWhatsApp, '_blank');
+        document.getElementById('enviar-whatsapp').addEventListener('click', () => {
+    let mensagem = `*PEDIDO:*\n`;
+    listaCarrinho.querySelectorAll('li').forEach(item => {
+        mensagem += `${item.innerText}\n`;
+    });
+    mensagem += `--------------------------------
+*Total: R$ ${totalGeral.innerText}*\n`;
+    const nome = document.getElementById('nome').value;
+    const endereco = document.getElementById('endereco').value;
+    const telefone = document.getElementById('telefone').value;
+    const observacao = document.getElementById('observacao').value;
+    const formaPagamento = document.getElementById('forma-pagamento').value;
+    const bairro = document.getElementById('bairro').value;
+
+    mensagem += `\n*Nome:* ${nome}\n*Endereço:* ${endereco}\n*Bairro:* ${bairro}\n*Telefone:* ${telefone}\n*Observação:* ${observacao}\n*Forma de Pagamento:* ${formaPagamento}
+    
+Yallah agradece.    `;
+    const numeroWhatsApp = '5594991630373';
+    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
+    window.open(urlWhatsApp, '_blank');
+    setTimeout(() => {
+        location.reload();
+    }, 4000);
+});
+
+Swal.fire({
+    title: 'Obrigado!',
+    text: 'Seu pedido foi enviado com sucesso! Obg e Volte sempre.',
+    imageUrl: 'esfirra.jpg',
+    imageWidth: 200,
+    imageHeight: 200,
+    imageAlt: '',
+    confirmButtonText: 'OK'
+}).then(() => {
+    location.reload();
+    window.scrollTo(0, 0);
+});
+
+    });
+
+
+            document.getElementById('seta-topo').addEventListener('click', () => {
+                document.getElementById('botao-menu').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            document.getElementById('seta-carrinho').addEventListener('click', () => {
+                document.getElementById('carrinho').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            //taxa de entrega
+            document.getElementById('bairro').addEventListener('change', (event) => {
+                if (event.target.value) {
+                    total += 3.00;
+                } else {
+                    total -= 3.00;
+                }
+                totalGeral.innerText = total.toFixed(2);
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.ctrlKey && event.shiftKey && event.key === 'I') {
+                    event.preventDefault();
+                }
+            });
+
+            document.addEventListener('contextmenu', function (event) {
+                event.preventDefault();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+                    e.preventDefault();
+                }
+                if (e.key === 'F12') {
+                    e.preventDefault();
+                }
+            });
+            setInterval(() => {
+        location.reload();
+    }, 1800000); // atualiar a cada 30 min
+        </script>
+
+        <style>
+            @keyframes piscar {
+                0% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.5;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+
+            .seta {
+                position: fixed;
+                right: 10px;
+                cursor: pointer;
+                font-size: 18px;
+                color: white;
+                transition: transform 0.3s;
+                background-color: #000000;
+                border-radius: 10px;
+                padding: 4px;
+                font-weight: 600;
+            }
+
+            .seta:hover {
+                transform: scale(1.2);
+            }
+        </style>
+        <footer>
+            <style>
+                footer {
+                    background-color: #292929;
+                    color: #fff;
+                    text-align: center;
+                    padding: 10px 0;
+                    border-radius: 10px;
+                }
+
+                .rodape ul {
+                    list-style: none;
+                    padding: 0;
+                }
+
+                .rodape li {
+                    display: inline;
+                    margin: 0 10px;
+                }
+
+                .rodape a {
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+                .rodape a:hover {
+                    text-decoration: underline;
+                }
+
+                .wha {
+                    width: 2%;
+                    box-shadow: 10px, 10px, 20px black -10px -10px 20px black
+                }
+
+                .inst {
+                    width: 2%;
+                }
+
+                .whatsapp-link {
+                    position: fixed;
+                    width: 40px;
+                    height: 40px;
+                    bottom: 40px;
+                    right: 5px;
+                    border-radius: 50px;
+                    text-align: center;
+                    font-size: 30px;
+                    z-index: 1000;
+                }
+
+                .car {
+                    width: 20%;
+                    margin-top: 3%;
+                }
+
+                .car2 {
+                    width: 3%;
+                    position: fixed;
+                    position: fixed;
+                    width: 40px;
+                    height: 40px;
+                    bottom: 130px;
+                    right: 5px;
+                    text-align: center;
+                    font-size: 30px;
+                    z-index: 1000;
+                    background-color: rgb(165, 164, 164);
+                    border-radius: 30%;
+                }
+
+                .car3 {
+                    width: 3%;
+                    position: fixed;
+                    position: fixed;
+                    width: 40px;
+                    height: 40px;
+                    bottom: 220px;
+                    right: 5px;
+                    text-align: center;
+                    font-size: 30px;
+                    z-index: 1000;
+                    background-color: rgb(165, 164, 164);
+                    border-radius: 30%;
+                }
+            </style>
+            <div class="rodape">
+                <ul>
+                    <li id="C1" style="font-size: 20px; font-weight: 600;">CONTATOS:</li> <br><br>
+                    <b style="text-align: center;"> (94) 99163-0373</b>
+                    <li>
+                        <!-- <img id="C1" class="inst" src="instagram.png" alt=""><a style="font-size: 100%;"
+                        href="https://www.instagram.com/anacamiladesignerdefestas?igsh=YWVhYXN4bTZjNmxj&utm_source=qr">
+                        <b>Acesse nosso Instagram</b></a>-->
+
+                    </li>
+
+                </ul>
+                <!-- <li><b>Email:</b> itingadomaranhao@gmail.com</li><br><br> -->
+                <strong>Horario de atendimento:</strong> Segunda a Domingo, das 8:00 as 20:30. <br>
+                <li><b>Endereço:</b> AV.Paraisópolis, S/N, Bairro: Paraíso <br> Itinga do Maranhão.
+
+                    <img class="car" src="cartao.webp" alt="">
+                    <a href="https://wa.me/5599992247544" target="_blank">
+                <li><i><u>Criado por: Carlos de Freitas Rocha. <br>Click aqui e faça seu orçamento.</u></i></li></a>
+                <p><a href="https://wa.me/5599992247544" target="_blank"><img src="logo2.png" style="width: 50px;"></a>
+                </p>
+            </div>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d697.9369967037921!2d-47.525017814136056!3d-4.458514468023676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-BR!2sbr!4v1752959242037!5m2!1spt-BR!2sbr"
+                width="250" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </footer>
+        
+</body>
+
+</html>

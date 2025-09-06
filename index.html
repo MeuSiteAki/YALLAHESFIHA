@@ -393,6 +393,68 @@
         </style>
         <button id="botao-menu">Menu</button><br>
         <div id="menu">
+            <div class="painel-promocao">
+    <div class="conteudo-promocao">
+        <h2>Promoção Especial </h2>
+        <img style="width: 100px; border-radius: 2px;" src="5 esfi.jpg" alt="">
+        <p class="pro">Leve <strong>5 esfihas</strong> (exceto Nutella) por apenas</p>
+        <span class="preco">R$ 19,99</span>
+    </div>
+</div>
+<style>
+    .pro {
+        color: white;
+    }
+    .painel-promocao {
+    background-color: #000; /* fundo preto */
+    color: #fff; /* texto branco */
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: 30px auto;
+    text-align: center;
+    border: 4px solid #fff;
+    /* Moldura com padrão árabe */
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.05) 10px,
+        rgba(255,255,255,0.05) 20px
+    );
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.painel-promocao h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Scheherazade New', serif; /* fonte com toque árabe */
+    letter-spacing: 1px;
+}
+
+.painel-promocao p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.painel-promocao .preco {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: #fff;
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.painel-promocao .detalhe {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+</style>
     *Imagens meramente ilustrativas
     <div id="container">
         <button class="btn-menu" onclick="toggleMostruario('esfihas'); scrollToSection('esfira');"><a style="color: white; font-weight: 600; font-size: 20px;" href="#esfira"> Esfihas </a></button>
@@ -477,6 +539,7 @@
         </div>
     </div>
 </section>
+
 
 <script>
     function toggleMostruario(item) {
@@ -564,43 +627,43 @@
         <section id="mostruario-salgados" style="display: none;">
             <h2 id="salgados">SALGADOS</h2>
             <div id="mostruario">
-                <div id="esfiha" class="produto" data-preco="5.00">
+                <div id="esfiha" class="produto" data-preco="3.99">
                     <img style="width: 97px;"
                         src="https://panattos.com.br/uploads/produtos/2017/03/coxinha-de-frango-com-requeijao-mini-congelada.jpg"
                         alt="">
                     <h3>Coxinha de Frango </h3>
-                    <h3> <br> <br> R$ 5,00</h3>
+                    <h3> <br> <br> R$ 3,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
                 </div>
-                <div class="produto" data-preco="5.00">
+                <div class="produto" data-preco="3.99">
                     <img style="width: 97px;"
                         src="https://receitasdepesos.com.br/wp-content/uploads/2025/03/pastel-de-massa-cozida-e1748691200729.jpg"
                         alt="">
                     <h3>Pastel de Carne </h3>
-                    <h3> <br><br> R$ 5,00</h3>
+                    <h3> <br><br> R$ 3,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
                 </div>
-                <div class="produto" data-preco="5.00">
+                <div class="produto" data-preco="3.99">
                     <img style="width: 97px;"
                         src="https://receitasdepesos.com.br/wp-content/uploads/2025/03/pastel-de-massa-cozida-e1748691200729.jpg"
                         alt="">
                     <h3>Patel de Queijo com Presunto</h3>
-                    <h3>R$ 5,00</h3>
+                    <h3>R$ 3,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
                 </div>
             </div>
             <div id="mostruario">
-                <div id="esfiha" class="produto" data-preco="5.00">
+                <div id="esfiha" class="produto" data-preco="3.99">
                     <img style="width:95px;"
                         src="https://d246rzh6rlbt6w.cloudfront.net/img.produtos/645527/645/img_1200_1.png" alt="">
                     <h3>Enroladinho de salsicha </h3>
-                    <h3> <br> R$ 5,00</h3>
+                    <h3> <br> R$ 3,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
@@ -639,64 +702,64 @@
         <section id="mostruario-pao" style="display: none;">
             <h2 id="paopizza">PÃO PIZZA</h2>
             <div id="mostruario">
-                <div id="pao" class="produto" data-preco="7.00">
+                <div id="pao" class="produto" data-preco="4.99">
                     <img style="width: 97px;"
                         src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
                         alt="">
                     <h3>Pão Pizza Carne </h3>
-                    <h3> <br> R$ 7,00</h3>
+                    <h3> <br> R$ 4,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
                 </div>
-                <div class="produto" data-preco="7.00">
+                <div class="produto" data-preco="4.99">
                     <img style="width: 97px;"
                         src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
                         alt="">
                     <h3>Pão Pizza Frango</h3>
-                    <h3> <br> R$ 7,00</h3>
+                    <h3> <br> R$ 4,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
                 </div>
-                <div id="pao" class="produto" data-preco="7.00">
+                <div id="pao" class="produto" data-preco="4.99">
                     <img style="width: 97px;"
                         src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
                         alt="">
                     <h3>Pão Pizza Queijo e Presunto </h3>
-                    <h3> <br> R$ 7,00</h3>
+                    <h3> <br> R$ 4,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
                 </div>
             </div>
             <div id="mostruario">
-                <div id="pao" class="produto" data-preco="7.00">
+                <!-- <div id="pao" class="produto" data-preco="4.99">
                     <img style="width: 97px;"
                         src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
                         alt="">
                     <h3>Pão Pizza Queijo <br> com Carne </h3>
-                    <h3> <br> R$ 7,00</h3>
+                    <h3> <br> R$ 4,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
-                </div>
-                <div class="produto" data-preco="7.00">
+                </div> -->
+                <div class="produto" data-preco="4.99">
                     <img style="width: 97px;"
                         src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
                         alt="">
                     <h3>Pão Pizza Frango com Queijo </h3>
-                    <h3> <br> R$ 7,00</h3>
+                    <h3> <br> R$ 4,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
                 </div>
-                <div class="produto" data-preco="7.00">
+                <div class="produto" data-preco="4.99">
                     <img style="width: 97px;"
                         src="https://phygital-files.mercafacil.com/supermercado-azm/uploads/produto/pao_pizza_azm_83bf2d65-b125-4844-96ca-2ba4b2d1c0ed.png"
                         alt="">
                     <h3>Pão Pizza Salsicha com Queijo</h3>
-                    <h3> <br> R$ 7,00</h3>
+                    <h3> <br> R$ 4,99</h3>
                     <button class="adicionar">Adicionar</button>
                     <br><br>
                     <button class="remover">Remover</button>
@@ -1054,6 +1117,12 @@
             }
             totalGeral.innerText = total.toFixed(2);
             totalItens.innerText = quantidadeTotal;
+// promoção
+            if (quantidadeTotal === 5) {
+                total = 19.99;
+                totalGeral.innerText = total.toFixed(2);
+                Swal.fire('Combo!', 'Você adquiriu um combo de 5 esfihas por R$ 19,99!', 'success');
+            }
         });
 
         produto.querySelector('.remover').addEventListener('click', () => {
@@ -1134,56 +1203,17 @@
         const observacao = document.getElementById('observacao').value;
         const formaPagamento = document.getElementById('forma-pagamento').value;
         const bairro = document.getElementById('bairro').value;
-if (!nome || !endereco || !telefone || bairro === "Selecione o Bairro" || formaPagamento === "Forma de Pagamento") {
-        Swal.fire('Erro!', 'Todos os campos são obrigatórios, exceto observação.', 'error');
-        return;
-    }
+        if (!nome || !endereco || !telefone || bairro === "Selecione o Bairro" || formaPagamento === "Forma de Pagamento") {
+            Swal.fire('Erro!', 'Todos os campos são obrigatórios, exceto observação.', 'error');
+            return;
+        }
         mensagem += `\n*Nome:* ${nome}\n*Endereço:* ${endereco}\n*Bairro:* ${bairro}\n*Telefone:* ${telefone}\n*Observação:* ${observacao}\n*Forma de Pagamento:* ${formaPagamento}
         
 Yallah agradece.    `;
         const numeroWhatsApp = '5594991630373';
         const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
         window.open(urlWhatsApp, '_blank');
-        document.getElementById('enviar-whatsapp').addEventListener('click', () => {
-    let mensagem = `*PEDIDO:*\n`;
-    listaCarrinho.querySelectorAll('li').forEach(item => {
-        mensagem += `${item.innerText}\n`;
     });
-    mensagem += `--------------------------------
-*Total: R$ ${totalGeral.innerText}*\n`;
-    const nome = document.getElementById('nome').value;
-    const endereco = document.getElementById('endereco').value;
-    const telefone = document.getElementById('telefone').value;
-    const observacao = document.getElementById('observacao').value;
-    const formaPagamento = document.getElementById('forma-pagamento').value;
-    const bairro = document.getElementById('bairro').value;
-
-    mensagem += `\n*Nome:* ${nome}\n*Endereço:* ${endereco}\n*Bairro:* ${bairro}\n*Telefone:* ${telefone}\n*Observação:* ${observacao}\n*Forma de Pagamento:* ${formaPagamento}
-    
-Yallah agradece.    `;
-    const numeroWhatsApp = '5594991630373';
-    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
-    window.open(urlWhatsApp, '_blank');
-    setTimeout(() => {
-        location.reload();
-    }, 4000);
-});
-
-Swal.fire({
-    title: 'Obrigado!',
-    text: 'Seu pedido foi enviado com sucesso! Obg e Volte sempre.',
-    imageUrl: 'esfirra.jpg',
-    imageWidth: 200,
-    imageHeight: 200,
-    imageAlt: '',
-    confirmButtonText: 'OK'
-}).then(() => {
-    location.reload();
-    window.scrollTo(0, 0);
-});
-
-    });
-
 
             document.getElementById('seta-topo').addEventListener('click', () => {
                 document.getElementById('botao-menu').scrollIntoView({ behavior: 'smooth' });
